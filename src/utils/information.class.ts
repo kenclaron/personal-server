@@ -25,7 +25,7 @@ export class Information {
   }
 
   static write(message: string) {
-    Logger.write(util.format(message.replaceAll(/\[\d{1,2}m/g, "")) + "\n");
+    Logger.write(util.format(message.replace(/\[\d{1,2}m/g, "")) + "\n");
   }
 }
 
