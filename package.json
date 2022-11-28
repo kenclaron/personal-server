@@ -1,0 +1,19 @@
+{
+  "name": "personal-server",
+  "version": "0.1.0",
+  "description": "Web Server for personal website",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "server",
+    "backend"
+  ],
+  "author": {
+    "name": "Dmitry Britov",
+    "email": "da.britov@yandex.ru",
+    "url": "https://github.com/kenclaron"
+  },
+  "license": "UNLICENSED"
+}
