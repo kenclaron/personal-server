@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2022",
+    "target": "ES6",
     "module": "commonjs",
     "sourceMap": true,
     "moduleResolution": "node",
@@ -8,5 +8,5 @@
     "outDir": "dist",
     "baseUrl": "/src"
   },
-  "lib": ["es2022"]
+  "lib": ["ES6"]
 }
