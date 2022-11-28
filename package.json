@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Web Server for personal website",
   "main": "src/index.ts",
+  "type": "module",
   "private": "true",
   "scripts": {
     "start": "cross-env NODE_ENV=production npx ts-node src/index.ts",
