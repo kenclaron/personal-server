@@ -58,8 +58,9 @@ export class GitHubAPI {
       request.query.cached === "true" &&
       fs.existsSync(Config.github + filename);
     const needCache =
+      cached &&
       addDays(fs.statSync(Config.github + filename).mtime, CACHE_DAY) >
-      new Date();
+        new Date();
     const github =
       StatusHandler.cached || (cached && needCache)
         ? false
