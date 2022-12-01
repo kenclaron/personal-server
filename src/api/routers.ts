@@ -9,6 +9,8 @@ import { InformationAPI } from "./information.api";
 
 const cache = apicache.middleware;
 
+const CACHE_TIME = "60 minutes";
+
 export class Routers {
   static Information = CreateInformationRouter();
   static GitHub = CreateGitHubRouter();
@@ -32,10 +34,13 @@ function CreateInformationRouter() {
 function CreateGitHubRouter() {
   const router = express.Router();
 
-  router.route("/github/status").get(cache("60 minutes"), GitHubAPI.getLimits);
+  router.route("/github/status").get(cache(CACHE_TIME), GitHubAPI.getLimits);
   router
     .route("/github/repositories/:username")
-    .get(cache("60 minutes"), GitHubAPI.getRepositories);
+    .get(cache(CACHE_TIME), GitHubAPI.getRepositories);
+  router
+    .route("/github/users/:username")
+    .get(cache(CACHE_TIME), GitHubAPI.getUser);
 
   return router;
 }
@@ -45,10 +50,10 @@ function CreateOpenGraphRouter() {
 
   router
     .route("/opengraph/image/get")
-    .get(cache("60 minutes"), OpenGraphAPI.Image.get);
+    .get(cache(CACHE_TIME), OpenGraphAPI.Image.get);
   router
     .route("/opengraph/image/url")
-    .get(cache("60 minutes"), OpenGraphAPI.Image.url);
+    .get(cache(CACHE_TIME), OpenGraphAPI.Image.url);
 
   return router;
 }

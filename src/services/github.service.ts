@@ -6,6 +6,7 @@ import {
   Limits,
   Repositories,
   ResponseWithError,
+  User,
 } from "../types/github.type";
 
 const octokit = new Octokit({
@@ -42,6 +43,22 @@ export class GitHub {
           type: "public",
           sort: "created",
         })
+        .then((response) => response)
+        .catch(() => undefined);
+    } catch (error) {
+      return error as RequestError;
+    }
+  }
+
+  /**
+   * Get data of user by username
+   * @param {string} username
+   * @return {Promise<ResponseWithError<User>>}
+   */
+  static async getUser(username: string): Promise<ResponseWithError<User>> {
+    try {
+      return octokit
+        .request(`GET /users/${username}`)
         .then((response) => response)
         .catch(() => undefined);
     } catch (error) {

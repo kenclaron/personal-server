@@ -5,7 +5,7 @@ import fs from "fs";
 import { GitHub } from "../services/github.service";
 
 import { ResponseError } from "../types/error.type";
-import { Limits, Repositories, Languages } from "../types/github.type";
+import { Limits, Repositories, Languages, User } from "../types/github.type";
 
 import Config from "../utils/config.class";
 import Information from "../utils/information.class";
@@ -174,6 +174,42 @@ export class GitHubAPI {
       .setHeader("Content-Type", "application/json")
       .status(200)
       .send(data);
+
+    Information.status(200, request.method, request.url);
+  }
+
+  static async getUser(request: Request, response: Response) {
+    const username = request.params.username;
+    const github = await GitHub.getUser(username);
+
+    if (!github) {
+      response.status(404).send(ResponseForm.Error.create(404, "Not Found"));
+      Information.status(404, request.method, request.url);
+
+      return;
+    }
+
+    if (github.status !== 200) {
+      const error = github as unknown as ResponseError;
+
+      response
+        .setHeader("Content-Type", "application/json")
+        .status(error.status)
+        .send(
+          ResponseForm.Error.create(error.status, error.response.data.message)
+        );
+
+      Information.status(github.status, request.method, request.url);
+
+      return;
+    }
+
+    const user = (github as OctokitResponse<User, number>).data;
+
+    response
+      .setHeader("Content-Type", "application/json")
+      .status(200)
+      .send(user);
 
     Information.status(200, request.method, request.url);
   }
