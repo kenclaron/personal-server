@@ -5,8 +5,7 @@ import Config from "../utils/config.class";
 import ResponseForm from "../utils/response.class";
 import { Information, Type } from "../utils/information.class";
 
-import { Status, Services } from "../types/status.type";
-import { GitHub } from "../services/github.service";
+import { Status } from "../types/status.type";
 
 export class InformationAPI {
   static async date(request: Request, response: Response, next) {
@@ -41,17 +40,9 @@ export class InformationAPI {
   }
 
   static async status(request: Request, response: Response) {
-    const services = request.query.services === "true";
     const status: Status = JSON.parse(fs.readFileSync(Config.status, "utf8"));
 
-    let data: Status & Services = status;
-
-    if (services) {
-      data.services = {
-        github: await (await GitHub.getLimits()).status,
-        opengraph: status.code,
-      };
-    }
+    let data: Status = status;
 
     response
       .setHeader("Content-Type", "application/json")

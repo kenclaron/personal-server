@@ -6,7 +6,7 @@ import StatusHandler from "../utils/status.class";
 
 export class Service {
   static responseUnavailable(request: Request, response: Response, next: any) {
-    if (StatusHandler.works || StatusHandler.cached) next();
+    if (StatusHandler.works) next();
     else {
       response
         .status(503)

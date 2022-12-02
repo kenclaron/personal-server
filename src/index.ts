@@ -17,7 +17,6 @@ const app = express()
   .use(bodyParser.text({ limit: "0kb" }), Routers.Error)
   .use(bodyParser.json({ limit: "0kb" }), Routers.Error)
   .use(Routers.Information)
-  .use(Routers.GitHub)
   .use(Routers.OpenGraph)
   .use(InformationAPI.error)
   .use(Routers.ErrorNotFound);

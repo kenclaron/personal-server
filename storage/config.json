@@ -1,5 +1,4 @@
 {
   "status": "storage/status.json",
-  "logs": "storage/logs",
-  "github": "storage/github"
+  "logs": "storage/logs"
 }

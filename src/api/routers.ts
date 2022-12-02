@@ -1,7 +1,6 @@
 import express from "express";
 import apicache from "apicache";
 
-import GitHubAPI from "./github.api";
 import OpenGraphAPI from "./opengraph.api";
 
 import { Service } from "../services/main.service";
@@ -13,7 +12,6 @@ const CACHE_TIME = "60 minutes";
 
 export class Routers {
   static Information = CreateInformationRouter();
-  static GitHub = CreateGitHubRouter();
   static OpenGraph = CreateOpenGraphRouter();
   static Error = CreateErrorRouter();
   static ErrorNotFound = CreateErrorNotFoundRouter();
@@ -27,20 +25,6 @@ function CreateInformationRouter() {
   router.route("/").get(InformationAPI.not);
   router.route("/status").get(InformationAPI.status);
   router.route("/favicon.ico").get(InformationAPI.favicon);
-
-  return router;
-}
-
-function CreateGitHubRouter() {
-  const router = express.Router();
-
-  router.route("/github/status").get(cache(CACHE_TIME), GitHubAPI.getLimits);
-  router
-    .route("/github/repositories/:username")
-    .get(cache(CACHE_TIME), GitHubAPI.getRepositories);
-  router
-    .route("/github/users/:username")
-    .get(cache(CACHE_TIME), GitHubAPI.getUser);
 
   return router;
 }

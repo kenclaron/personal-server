@@ -1,7 +1,7 @@
 {
-  "name": "personal-server",
+  "name": "opengraph-api-image",
   "version": "0.1.0",
-  "description": "Web Server for personal website",
+  "description": "Web Server for OpenGraph Image",
   "main": "src/index.ts",
   "private": "true",
   "scripts": {
